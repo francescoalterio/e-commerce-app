@@ -38,7 +38,7 @@ const tabOptions = ({ route }: tabOptionsProps) => ({
   tabBarShowLabel: false,
   tabBarStyle: {
     backgroundColor: COLORS.primary,
-    height: 70,
+    height: 60,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
   },
@@ -62,6 +62,6 @@ const tabOptions = ({ route }: tabOptionsProps) => ({
       />
     );
   },
-  tabBarActiveTintColor: COLORS.white,
-  tabBarInactiveTintColor: COLORS.white,
+  tabBarActiveTintColor: COLORS.backgroundWhite,
+  tabBarInactiveTintColor: COLORS.backgroundWhite,
 });

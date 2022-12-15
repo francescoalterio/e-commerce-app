@@ -40,7 +40,7 @@ export function CategoryList({
 
 const styles = StyleSheet.create({
   container: {
-    height: 90,
+    height: 100,
     marginHorizontal: -15,
   },
 });

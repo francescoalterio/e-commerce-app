@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   text: {
-    color: COLORS.white,
+    color: COLORS.backgroundWhite,
   },
   semiCircle: {
     borderBottomLeftRadius: 100,

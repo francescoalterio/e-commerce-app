@@ -1,5 +1,6 @@
-import { StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
+import { COLORS } from "../../settings/colors";
 
 interface Props {
   id: string;
@@ -20,20 +21,19 @@ export function CategoryCard({
 }: Props) {
   return (
     <TouchableOpacity style={[styles.container]}>
-      <Image
-        style={[
-          styles.image,
-          {
-            width: imageSize,
-            height: imageSize,
-            backgroundColor,
-            borderRadius: 15,
-          },
-        ]}
-        source={{
-          uri: imgURL,
-        }}
-      />
+      <View style={styles.imageContainer}>
+        <Image
+          style={[
+            {
+              width: imageSize,
+              height: imageSize,
+            },
+          ]}
+          source={{
+            uri: imgURL,
+          }}
+        />
+      </View>
       <Text
         style={[
           { color: textColor, textAlign: "center", fontSize: 10, marginTop: 5 },
@@ -51,6 +51,17 @@ const styles = StyleSheet.create({
     height: 70,
     marginHorizontal: 15,
     alignItems: "center",
+    marginTop: 5,
   },
-  image: {},
+  imageContainer: {
+    padding: 10,
+    backgroundColor: COLORS.backgroundWhite,
+    borderRadius: 15,
+    shadowColor: "#000000",
+    elevation: 5,
+    borderBottomLeftRadius: 100,
+    borderBottomRightRadius: 100,
+    borderTopLeftRadius: 100,
+    borderTopRightRadius: 100,
+  },
 });

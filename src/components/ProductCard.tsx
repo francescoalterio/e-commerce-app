@@ -29,6 +29,13 @@ export function ProductCard({
 }: Props) {
   return (
     <TouchableOpacity style={[styles.container, { backgroundColor }]}>
+      <TouchableOpacity style={styles.heart}>
+        <MaterialComunityIcons
+          name={"heart-outline"}
+          size={30}
+          color={COLORS.black}
+        />
+      </TouchableOpacity>
       <Image
         style={[styles.image]}
         source={{
@@ -71,9 +78,18 @@ const styles = StyleSheet.create({
     width: 160,
     height: 270,
     alignItems: "center",
-    shadowColor: "#171717",
+    shadowColor: "#000000",
     elevation: 10,
     marginVertical: 5,
+  },
+  heart: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
     width: 120,
@@ -109,8 +125,10 @@ const styles = StyleSheet.create({
     padding: 5,
     shadowColor: "#171717",
     elevation: 2,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.backgroundWhite,
     marginLeft: 10,
     borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

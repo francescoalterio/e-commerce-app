@@ -41,7 +41,7 @@ export function Home() {
         <CategoryList
           data={categoriesSimulation}
           categoryColor={COLORS.lightGray}
-          imageSize={60}
+          imageSize={40}
           textColor={COLORS.black}
         />
         <Separator />
@@ -71,7 +71,7 @@ export function Home() {
                 price={item.price}
                 discountPrice={item.discountPrice}
                 pieces={item.pieces}
-                backgroundColor={COLORS.white}
+                backgroundColor={COLORS.backgroundWhite}
                 textColor={COLORS.black}
               />
             )}
@@ -88,10 +88,10 @@ export function Home() {
 const styles = StyleSheet.create({
   back: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.backgroundWhite,
   },
   semiCircle: {
-    height: "40%",
+    height: "35%",
     position: "absolute",
     backgroundColor: COLORS.primary,
     borderBottomLeftRadius: 400,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
   },
   welcome: {
-    color: COLORS.white,
+    color: COLORS.backgroundWhite,
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 20,
