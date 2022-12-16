@@ -9,6 +9,7 @@ interface Props {
   name: string;
   imgURL: string;
   category: string;
+  description: string;
   price: number;
   discountPrice?: number;
   pieces: number;
@@ -21,6 +22,7 @@ export function ProductCard({
   name,
   imgURL,
   category,
+  description,
   price,
   discountPrice,
   pieces,
@@ -52,17 +54,20 @@ export function ProductCard({
         <Text style={styles.productPieces}> // {pieces} pack</Text>
       </View>
       <View style={[styles.textContainer, { marginTop: 5 }]}>
-        {discountPrice && <View style={styles.discountLine} />}
-        {discountPrice ? (
+        {discountPrice !== 0 && <View style={styles.discountLine} />}
+        {discountPrice !== 0 ? (
           <Text style={styles.productDiscount}>$ {price}</Text>
         ) : (
           <Text> </Text>
         )}
       </View>
-      <View style={[styles.textContainer, { marginTop: 5 }]}>
-        <PrimaryButton content="Buy Now" rounded="corners" flex />
+      <View style={[styles.textContainer, { height: 35, marginTop: 5 }]}>
+        <Text style={{ color: "gray" }}>{description}</Text>
+      </View>
+      <View style={[styles.textContainer, { marginTop: 10 }]}>
+        <PrimaryButton content="Buy Now" rounded="corners" flex size="large" />
         <TouchableOpacity style={styles.addToCart}>
-          <MaterialComunityIcons name={"plus"} size={17} color={COLORS.black} />
+          <MaterialComunityIcons name={"plus"} size={27} color={COLORS.black} />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -71,16 +76,15 @@ export function ProductCard({
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    marginHorizontal: "2%",
     borderRadius: 15,
-    width: 160,
-    height: 270,
+    width: "96%",
     alignItems: "center",
     shadowColor: "#000000",
     elevation: 10,
-    marginVertical: 5,
+    marginVertical: 10,
   },
   heart: {
     position: "absolute",
@@ -92,20 +96,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 120,
-    height: 120,
+    width: 200,
+    height: 200,
   },
   textContainer: {
     width: "100%",
     flexDirection: "row",
   },
   productName: {
+    fontSize: 18,
     marginTop: 15,
     fontWeight: "bold",
   },
   productPrice: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 25,
   },
   productPieces: {
     color: "gray",

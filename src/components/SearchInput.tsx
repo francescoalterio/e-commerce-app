@@ -5,9 +5,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface Props {
   children: React.ReactNode;
+  onChangeText: (text: string) => void;
+  defaultValue?: string;
 }
 
-export function SearchInput({ children }: Props) {
+export function SearchInput({ children, onChangeText, defaultValue }: Props) {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -15,6 +17,8 @@ export function SearchInput({ children }: Props) {
         <TextInput
           style={styles.input}
           placeholder="Search for everything here"
+          onChangeText={onChangeText}
+          defaultValue={defaultValue}
         />
       </View>
       {children}

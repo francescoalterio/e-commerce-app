@@ -9,6 +9,7 @@ interface Props {
   backgroundColor: string;
   textColor: string;
   imageSize: number;
+  shadow?: boolean;
 }
 
 export function CategoryCard({
@@ -18,10 +19,13 @@ export function CategoryCard({
   backgroundColor,
   textColor,
   imageSize,
+  shadow,
 }: Props) {
+  const needShadow = shadow && { shadowColor: "#000000", elevation: 5 };
+
   return (
     <TouchableOpacity style={[styles.container]}>
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, needShadow]}>
         <Image
           style={[
             {
@@ -57,8 +61,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: COLORS.backgroundWhite,
     borderRadius: 15,
-    shadowColor: "#000000",
-    elevation: 5,
+
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
     borderTopLeftRadius: 100,

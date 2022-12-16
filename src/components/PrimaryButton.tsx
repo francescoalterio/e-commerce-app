@@ -5,17 +5,34 @@ interface Props {
   content: string;
   rounded: "semiCircle" | "corners";
   flex?: boolean;
+  size: "small" | "large";
+  onPress: () => void;
 }
 
-export function PrimaryButton({ content, rounded, flex }: Props) {
+export function PrimaryButton({
+  content,
+  rounded,
+  flex,
+  size,
+  onPress,
+}: Props) {
   const roundedStyle =
     rounded === "corners" ? styles.corners : styles.semiCircle;
+
+  const buttonPadding =
+    size === "small"
+      ? { paddingHorizontal: 15, paddingVertical: 5 }
+      : size === "large"
+      ? { paddingHorizontal: 15, paddingVertical: 10 }
+      : undefined;
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.touchable,
         roundedStyle,
         { flex: flex ? 1 : 0, alignItems: "center" },
+        buttonPadding,
       ]}
     >
       <Text style={styles.text}>{content}</Text>
@@ -26,8 +43,6 @@ export function PrimaryButton({ content, rounded, flex }: Props) {
 const styles = StyleSheet.create({
   touchable: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: 15,
-    paddingVertical: 5,
   },
   text: {
     color: COLORS.backgroundWhite,

@@ -3,8 +3,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
   ScrollView,
+  Image,
 } from "react-native";
 import Constants from "expo-constants";
 import { COLORS } from "../../settings/colors";
@@ -17,12 +17,21 @@ import { SectionTitle } from "../components/SectionTitle";
 import { CategoryList } from "../components/CategoryList";
 import { Separator } from "../components/Separator";
 
-import { categoriesSimulation } from "../Firebase/categoriesSimulation";
-import { productsSimulation } from "../Firebase/productsSimulation";
+import { categoriesSimulation } from "../Firebase/Simulations/categoriesSimulation";
+import { productsSimulation } from "../Firebase/Simulations/productsSimulation";
 import { ProductCard } from "../components/ProductCard";
+import { useGetCategories } from "../hooks/useGetCategories";
+import { useGetAllProducts } from "../hooks/useGetAllProducts";
 
-export function Home() {
+import { tabOptionsProps } from "../Navigation";
+import { useTextInput } from "../hooks/useTextInput";
+
+export function Home({ navigation }: tabOptionsProps) {
   const { width } = useWindowDimensions();
+  //const { categories } = useGetCategories();
+  //const { products } = useGetAllProducts();
+  const [searchInputText, onChageSearchInput] = useTextInput();
+
   return (
     <ScrollView style={styles.back}>
       <View
@@ -33,16 +42,35 @@ export function Home() {
       />
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome</Text>
-        <SearchInput>
-          <PrimaryButton content="Search" rounded="semiCircle" />
+        <SearchInput
+          onChangeText={onChageSearchInput as (text: string) => void}
+        >
+          <PrimaryButton
+            content="Search"
+            rounded="semiCircle"
+            size="small"
+            onPress={() =>
+              navigation.navigate("Search", {
+                searchText: searchInputText as string,
+              })
+            }
+          />
         </SearchInput>
-        <View style={styles.announcement}></View>
+        <View style={styles.announcement}>
+          <Image
+            source={{
+              uri: "https://cdn4.vectorstock.com/i/1000x1000/38/43/christmas-sale-web-banner-e-commerce-online-shop-vector-27793843.jpg",
+            }}
+            style={{ width: "100%", height: "100%", borderRadius: 20 }}
+          />
+        </View>
         <SectionTitle content="Categories" />
         <CategoryList
           data={categoriesSimulation}
           categoryColor={COLORS.lightGray}
           imageSize={40}
           textColor={COLORS.black}
+          shadow
         />
         <Separator />
         <SectionTitle content="Last Products">
@@ -59,26 +87,22 @@ export function Home() {
             />
           </TouchableOpacity>
         </SectionTitle>
-        <View style={{ marginHorizontal: -10, height: 300, marginBottom: 10 }}>
-          <FlatList
-            data={productsSimulation}
-            renderItem={({ item }) => (
-              <ProductCard
-                id={item.id}
-                name={item.name}
-                imgURL={item.imgURL}
-                category={item.category}
-                price={item.price}
-                discountPrice={item.discountPrice}
-                pieces={item.pieces}
-                backgroundColor={COLORS.backgroundWhite}
-                textColor={COLORS.black}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          />
+        <View style={{ marginBottom: 10, width: "100%" }}>
+          {productsSimulation.map((item) => (
+            <ProductCard
+              id={item.id}
+              name={item.name}
+              imgURL={item.imgURL}
+              category={item.category}
+              description={item.description}
+              price={item.price}
+              discountPrice={item.discountPrice}
+              pieces={item.pieces}
+              backgroundColor={COLORS.backgroundWhite}
+              textColor={COLORS.black}
+              key={item.id}
+            />
+          ))}
         </View>
       </View>
     </ScrollView>
@@ -91,7 +115,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.backgroundWhite,
   },
   semiCircle: {
-    height: "35%",
+    height: 325,
     position: "absolute",
     backgroundColor: COLORS.primary,
     borderBottomLeftRadius: 400,
