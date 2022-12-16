@@ -65,7 +65,13 @@ export function ProductCard({
         <Text style={{ color: "gray" }}>{description}</Text>
       </View>
       <View style={[styles.textContainer, { marginTop: 10 }]}>
-        <PrimaryButton content="Buy Now" rounded="corners" flex size="large" />
+        <PrimaryButton
+          content="Buy Now"
+          rounded="corners"
+          flex
+          size="large"
+          onPress={() => {}}
+        />
         <TouchableOpacity style={styles.addToCart}>
           <MaterialComunityIcons name={"plus"} size={27} color={COLORS.black} />
         </TouchableOpacity>

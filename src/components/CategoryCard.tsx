@@ -40,7 +40,13 @@ export function CategoryCard({
       </View>
       <Text
         style={[
-          { color: textColor, textAlign: "center", fontSize: 10, marginTop: 5 },
+          {
+            color: textColor,
+            textAlign: "center",
+            fontSize: 10,
+            marginTop: 5,
+            fontWeight: "bold",
+          },
         ]}
       >
         {name}
