@@ -3,6 +3,7 @@ import { Product } from "../types/Product";
 
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { firestoreDB } from "../Firebase/firestore";
+import { getLastProducts } from "../Firebase/services/getLastProducts";
 
 export function useGetProductsByText(productName: string) {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,19 +11,26 @@ export function useGetProductsByText(productName: string) {
 
   const getProductsByText = async (text: string) => {
     setIsLoading(true);
-    const q = query(
-      collection(firestoreDB, "products"),
-      where("name", ">=", text),
-      where("name", "<=", text + "\uf8ff")
-    );
 
-    const querySnapshot = await getDocs(q);
+    if (!text) {
+      const result = await getLastProducts(10);
+      setProducts(result);
+      setIsLoading(false);
+      return;
+    }
+
+    const querySnapshot = await getDocs(collection(firestoreDB, "products"));
+
     const myData = querySnapshot.docs.map((doc) => ({
       ...(doc.data() as Product),
       id: doc.id,
     }));
 
-    setProducts(myData);
+    const dataFiltered = myData.filter((product) =>
+      product.name.toLowerCase().includes(text.toLowerCase())
+    );
+
+    setProducts(dataFiltered);
     setIsLoading(false);
   };
 

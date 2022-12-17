@@ -25,11 +25,13 @@ import { useGetAllProducts } from "../hooks/useGetAllProducts";
 
 import { tabOptionsProps } from "../Navigation";
 import { useTextInput } from "../hooks/useTextInput";
+import { useGetLastProducts } from "../hooks/useGetLastProducts";
 
 export function Home({ navigation }: tabOptionsProps) {
   const { width } = useWindowDimensions();
-  //const { categories } = useGetCategories();
-  //const { products } = useGetAllProducts();
+  const { categories } = useGetCategories();
+  // const { products } = useGetAllProducts();
+  const { products } = useGetLastProducts(5);
   const [searchInputText, onChageSearchInput] = useTextInput();
 
   return (
@@ -66,7 +68,7 @@ export function Home({ navigation }: tabOptionsProps) {
         </View>
         <SectionTitle content="Categories" />
         <CategoryList
-          data={categoriesSimulation}
+          data={categories}
           categoryColor={COLORS.lightGray}
           imageSize={40}
           textColor={COLORS.black}
@@ -76,6 +78,11 @@ export function Home({ navigation }: tabOptionsProps) {
         <SectionTitle content="Last Products">
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() =>
+              navigation.navigate("Search", {
+                searchText: "",
+              })
+            }
           >
             <Text style={{ color: COLORS.black, fontWeight: "bold" }}>
               See more{" "}
@@ -88,7 +95,7 @@ export function Home({ navigation }: tabOptionsProps) {
           </TouchableOpacity>
         </SectionTitle>
         <View style={{ marginBottom: 10, width: "100%" }}>
-          {productsSimulation.map((item) => (
+          {products.map((item) => (
             <ProductCard
               id={item.id}
               name={item.name}
