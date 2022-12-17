@@ -20,8 +20,8 @@ export function SearchInput({ children, onChangeText, defaultValue }: Props) {
           onChangeText={onChangeText}
           defaultValue={defaultValue}
         />
+        {children}
       </View>
-      {children}
     </View>
   );
 }
@@ -43,5 +43,7 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 5,
     color: "gray",
+    flex: 1,
+    marginRight: 5,
   },
 });

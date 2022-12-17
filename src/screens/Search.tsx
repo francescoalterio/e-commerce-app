@@ -18,6 +18,7 @@ import { useGetProductsByText } from "../hooks/useGetProductsByText";
 import { ProductCard } from "../components/ProductCard";
 import MaterialComunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useGetCategories } from "../hooks/useGetCategories";
+import { TopBar } from "../components/TopBar";
 
 export function Search({ route, navigation }: tabOptionsProps) {
   const [searchInputText, onChageSearchInput] = useTextInput();
@@ -28,27 +29,20 @@ export function Search({ route, navigation }: tabOptionsProps) {
   return (
     <ScrollView>
       <View style={styles.colorBlock}>
-        <TouchableOpacity
-          style={styles.goBack}
-          onPress={() => navigation.goBack()}
-        >
-          <MaterialComunityIcons
-            name={"chevron-left"}
-            size={35}
-            color={COLORS.backgroundWhite}
-          />
-        </TouchableOpacity>
-        <SearchInput
-          onChangeText={onChageSearchInput as (text: string) => void}
-          defaultValue={route.params?.searchText}
-        >
-          <PrimaryButton
-            content="Search"
-            rounded="semiCircle"
-            size="small"
-            onPress={() => getProductsByText(searchInputText as string)}
-          />
-        </SearchInput>
+        <TopBar />
+        <View style={{ paddingHorizontal: 30 }}>
+          <SearchInput
+            onChangeText={onChageSearchInput as (text: string) => void}
+            defaultValue={route.params?.searchText}
+          >
+            <PrimaryButton
+              content="Search"
+              rounded="semiCircle"
+              size="small"
+              onPress={() => getProductsByText(searchInputText as string)}
+            />
+          </SearchInput>
+        </View>
         <View style={{ marginVertical: 10 }} />
         <CategoryList
           data={categories}
@@ -87,15 +81,10 @@ export function Search({ route, navigation }: tabOptionsProps) {
 
 const styles = StyleSheet.create({
   colorBlock: {
-    paddingTop: Constants.statusBarHeight + 60,
+    paddingTop: Constants.statusBarHeight,
     width: "100%",
     paddingBottom: 10,
     backgroundColor: COLORS.primary,
     paddingHorizontal: 15,
-  },
-  goBack: {
-    position: "absolute",
-    top: Constants.statusBarHeight + 10,
-    left: 15,
   },
 });
