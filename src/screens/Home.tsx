@@ -20,11 +20,11 @@ import { Separator } from "../components/Separator";
 import { ProductCard } from "../components/ProductCard";
 import { useGetCategories } from "../hooks/useGetCategories";
 
-import { tabOptionsProps } from "../Navigation";
+import { StackOptionsProps } from "../Navigation";
 import { useTextInput } from "../hooks/useTextInput";
 import { useGetLastProducts } from "../hooks/useGetLastProducts";
 
-export function Home({ navigation }: tabOptionsProps) {
+export function Home({ navigation }: StackOptionsProps) {
   const { width } = useWindowDimensions();
   const { categories } = useGetCategories();
   const { products } = useGetLastProducts(5);
@@ -104,6 +104,7 @@ export function Home({ navigation }: tabOptionsProps) {
               backgroundColor={COLORS.backgroundWhite}
               textColor={COLORS.black}
               key={item.id}
+              createdAt={item.createdAt}
             />
           ))}
         </View>

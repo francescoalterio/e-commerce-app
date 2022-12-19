@@ -3,6 +3,8 @@ import React from "react";
 import MaterialComunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { PrimaryButton } from "./PrimaryButton";
 import { COLORS } from "../../settings/colors";
+import { Product } from "../types/Product";
+import { setLocalStorageData } from "../utils/setLocalStorageData";
 
 interface Props {
   id: string;
@@ -11,10 +13,11 @@ interface Props {
   category: string;
   description: string;
   price: number;
-  discountPrice?: number;
+  discountPrice: number;
   pieces: number;
   backgroundColor?: string;
   textColor?: string;
+  createdAt: Date;
 }
 
 export function ProductCard({
@@ -27,8 +30,25 @@ export function ProductCard({
   discountPrice,
   pieces,
   backgroundColor,
+  createdAt,
   textColor,
 }: Props) {
+  const addProductToShoppingCart = () => {
+    const product: Product = {
+      id,
+      name,
+      imgURL,
+      category,
+      description,
+      price,
+      discountPrice,
+      pieces,
+      createdAt,
+    };
+
+    setLocalStorageData("ShoppingCart", product);
+  };
+
   return (
     <TouchableOpacity style={[styles.container, { backgroundColor }]}>
       <TouchableOpacity style={styles.heart}>
@@ -72,7 +92,10 @@ export function ProductCard({
           size="large"
           onPress={() => {}}
         />
-        <TouchableOpacity style={styles.addToCart}>
+        <TouchableOpacity
+          onPress={addProductToShoppingCart}
+          style={styles.addToCart}
+        >
           <MaterialComunityIcons name={"plus"} size={27} color={COLORS.black} />
         </TouchableOpacity>
       </View>

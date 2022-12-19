@@ -7,20 +7,18 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Constants from "expo-constants";
-import { tabOptionsProps } from "../Navigation";
+import { StackOptionsProps } from "../Navigation";
 import { COLORS } from "../../settings/colors";
 import { useTextInput } from "../hooks/useTextInput";
 import { SearchInput } from "../components/SearchInput";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { CategoryList } from "../components/CategoryList";
-import { categoriesSimulation } from "../Firebase/Simulations/categoriesSimulation";
 import { useGetProductsByText } from "../hooks/useGetProductsByText";
 import { ProductCard } from "../components/ProductCard";
-import MaterialComunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useGetCategories } from "../hooks/useGetCategories";
 import { TopBar } from "../components/TopBar";
 
-export function Search({ route, navigation }: tabOptionsProps) {
+export function Search({ route, navigation }: StackOptionsProps) {
   const [searchInputText, onChageSearchInput] = useTextInput();
   const { categories } = useGetCategories();
   const { products, isLoading, getProductsByText } = useGetProductsByText(
@@ -71,6 +69,7 @@ export function Search({ route, navigation }: tabOptionsProps) {
               backgroundColor={COLORS.backgroundWhite}
               textColor={COLORS.black}
               key={item.id}
+              createdAt={item.createdAt}
             />
           ))
         )}

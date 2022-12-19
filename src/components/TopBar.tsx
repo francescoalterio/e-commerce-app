@@ -4,15 +4,17 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../settings/colors";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackOptionsProps } from "../Navigation";
 
 export function TopBar() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <AntDesign name={"left"} size={25} color={COLORS.backgroundWhite} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => navigation.navigate("ShoppingCart")}>
         <MaterialComunityIcons
           name={"cart"}
           size={25}
