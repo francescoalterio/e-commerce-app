@@ -17,11 +17,8 @@ import { SectionTitle } from "../components/SectionTitle";
 import { CategoryList } from "../components/CategoryList";
 import { Separator } from "../components/Separator";
 
-import { categoriesSimulation } from "../Firebase/Simulations/categoriesSimulation";
-import { productsSimulation } from "../Firebase/Simulations/productsSimulation";
 import { ProductCard } from "../components/ProductCard";
 import { useGetCategories } from "../hooks/useGetCategories";
-import { useGetAllProducts } from "../hooks/useGetAllProducts";
 
 import { tabOptionsProps } from "../Navigation";
 import { useTextInput } from "../hooks/useTextInput";
@@ -30,7 +27,6 @@ import { useGetLastProducts } from "../hooks/useGetLastProducts";
 export function Home({ navigation }: tabOptionsProps) {
   const { width } = useWindowDimensions();
   const { categories } = useGetCategories();
-  // const { products } = useGetAllProducts();
   const { products } = useGetLastProducts(5);
   const [searchInputText, onChageSearchInput] = useTextInput();
 
