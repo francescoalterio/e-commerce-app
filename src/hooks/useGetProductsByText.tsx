@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { Product } from "../types/Product";
 
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { firestoreDB } from "../Firebase/firestore";
 import { getLastProducts } from "../Firebase/services/getLastProducts";
+import { getProductsByText } from "../Firebase/services/getProductsByText";
 
 export function useGetProductsByText(productName: string) {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getProductsByText = async (text: string) => {
+  const getProducts = async (text: string) => {
     setIsLoading(true);
 
     if (!text) {
@@ -19,24 +18,15 @@ export function useGetProductsByText(productName: string) {
       return;
     }
 
-    const querySnapshot = await getDocs(collection(firestoreDB, "products"));
+    const data = await getProductsByText(text);
 
-    const myData = querySnapshot.docs.map((doc) => ({
-      ...(doc.data() as Product),
-      id: doc.id,
-    }));
-
-    const dataFiltered = myData.filter((product) =>
-      product.name.toLowerCase().includes(text.toLowerCase())
-    );
-
-    setProducts(dataFiltered);
+    setProducts(data);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    getProductsByText(productName);
+    getProducts(productName);
   }, []);
 
-  return { products, isLoading, getProductsByText };
+  return { products, isLoading, getProductsByText: getProducts };
 }

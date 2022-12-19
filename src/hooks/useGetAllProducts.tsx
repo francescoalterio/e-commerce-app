@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { getAllProducts } from "../Firebase/services/getAllProducts";
 import { Product } from "../types/Product";
 
-import { firestoreDB } from "../Firebase/firestore";
-import { collection, getDocs, DocumentData, doc } from "firebase/firestore";
-
 export function useGetAllProducts() {
-  const [data, setData] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  async function getProducts() {
+    const data = await getAllProducts();
+    setProducts(data as Product[]);
+  }
 
   useEffect(() => {
-    async function getData() {
-      const querySnapshot = await getDocs(collection(firestoreDB, "products"));
-
-      const myData = querySnapshot.docs.map((doc) => ({
-        ...(doc.data() as Product),
-        id: doc.id,
-      }));
-      setData(myData);
-    }
-
-    getData();
+    getProducts();
   }, []);
 
-  return { products: data };
+  return { products };
 }
