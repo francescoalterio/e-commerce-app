@@ -14,5 +14,5 @@ export function useGetShoppingCart() {
     getProducts();
   }, []);
 
-  return { products };
+  return { products, getNewProducts: getProducts };
 }

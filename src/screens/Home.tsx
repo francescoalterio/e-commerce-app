@@ -105,9 +105,9 @@ export function Home({ navigation }: StackOptionsProps) {
               discountPrice={item.discountPrice}
               pieces={item.pieces}
               backgroundColor={COLORS.backgroundWhite}
-              textColor={COLORS.black}
               key={item.id}
               createdAt={item.createdAt}
+              type="normal"
             />
           ))}
         </View>

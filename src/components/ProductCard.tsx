@@ -20,6 +20,9 @@ interface Props {
   backgroundColor?: string;
   textColor?: string;
   createdAt: Date;
+  type: "normal" | "cart";
+  cartAmount?: number;
+  getNewProducts?: () => void;
 }
 
 export function ProductCard({
@@ -33,12 +36,14 @@ export function ProductCard({
   pieces,
   backgroundColor,
   createdAt,
-  textColor,
+  type,
+  cartAmount,
+  getNewProducts,
 }: Props) {
   const addProductToShoppingCart = async () => {
     const isInCart = await isInShoppingCart(id);
     if (isInCart) {
-      setProductAmountInCart(id, "increment");
+      await setProductAmountInCart(id, "increment");
       return;
     }
 
@@ -56,6 +61,11 @@ export function ProductCard({
     };
 
     setLocalStorageData("ShoppingCart", product);
+  };
+
+  const removeProductToShoppingCart = async () => {
+    await setProductAmountInCart(id, "decrement");
+    if (getNewProducts) getNewProducts();
   };
 
   return (
@@ -87,19 +97,52 @@ export function ProductCard({
         <Text style={{ color: "gray" }}>{description}</Text>
       </View>
       <View style={[styles.textContainer, { marginTop: 10 }]}>
-        <PrimaryButton
-          content="Buy Now"
-          rounded="corners"
-          flex
-          size="large"
-          onPress={() => {}}
-        />
-        <TouchableOpacity
-          onPress={addProductToShoppingCart}
-          style={styles.addToCart}
-        >
-          <MaterialComunityIcons name={"plus"} size={27} color={COLORS.black} />
-        </TouchableOpacity>
+        {type === "normal" ? (
+          <>
+            <PrimaryButton
+              content="Buy Now"
+              rounded="corners"
+              flex
+              size="large"
+              onPress={() => {}}
+            />
+            <TouchableOpacity
+              onPress={addProductToShoppingCart}
+              style={styles.addToCart}
+            >
+              <MaterialComunityIcons
+                name={"plus"}
+                size={27}
+                color={COLORS.black}
+              />
+            </TouchableOpacity>
+          </>
+        ) : (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
+              alignItems: "center",
+            }}
+          >
+            <View>
+              <Text style={{ fontSize: 20 }}>
+                Amount: <Text style={{ fontWeight: "bold" }}>{cartAmount}</Text>
+              </Text>
+            </View>
+            <TouchableOpacity
+              onPress={removeProductToShoppingCart}
+              style={[styles.addToCart, { backgroundColor: COLORS.danger }]}
+            >
+              <MaterialComunityIcons
+                name={"minus"}
+                size={27}
+                color={COLORS.backgroundWhite}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -107,8 +150,8 @@ export function ProductCard({
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 15,
-    paddingHorizontal: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     marginHorizontal: "2%",
     borderRadius: 15,
     width: "96%",

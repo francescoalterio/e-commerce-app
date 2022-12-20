@@ -15,8 +15,13 @@ export async function setProductAmountInCart(id: string, action: Action) {
       ? { ...x, amount: action === "increment" ? x.amount + 1 : x.amount - 1 }
       : x
   );
+
+  const removeAllProductsIn0 = dataIncrementOrDecrement.filter(
+    (x) => x.amount !== 0
+  );
+
   await AsyncStorage.setItem(
     "ShoppingCart",
-    JSON.stringify(dataIncrementOrDecrement)
+    JSON.stringify(removeAllProductsIn0)
   );
 }

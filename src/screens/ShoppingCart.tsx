@@ -14,7 +14,7 @@ import { StackOptionsProps } from "../Navigation";
 import { getTotalPrice } from "../utils/getTotalPrice";
 
 export function ShoppingCart({ navigation }: StackOptionsProps) {
-  const { products } = useGetShoppingCart();
+  const { products, getNewProducts } = useGetShoppingCart();
   const totalPrice = getTotalPrice(products);
   return (
     <View style={styles.container}>
@@ -38,7 +38,7 @@ export function ShoppingCart({ navigation }: StackOptionsProps) {
           </Text>
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.container}>
+      <ScrollView style={[styles.container, { paddingHorizontal: 15 }]}>
         {products.map((item) => (
           <ProductCard
             id={item.id}
@@ -50,9 +50,11 @@ export function ShoppingCart({ navigation }: StackOptionsProps) {
             discountPrice={item.discountPrice}
             pieces={item.pieces}
             backgroundColor={COLORS.backgroundWhite}
-            textColor={COLORS.black}
             key={item.id}
             createdAt={item.createdAt}
+            type="cart"
+            cartAmount={item.amount}
+            getNewProducts={getNewProducts}
           />
         ))}
       </ScrollView>
