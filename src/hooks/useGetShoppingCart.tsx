@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { Product } from "../types/Product";
+import { CartProduct } from "../types/Product";
 import { getLocalStorageData } from "../utils/getLocalStorageData";
 
 export function useGetShoppingCart() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<CartProduct[]>([]);
 
   const getProducts = async () => {
     const data = await getLocalStorageData("ShoppingCart");
-    setProducts(data as Product[]);
+    setProducts(data as CartProduct[]);
   };
 
   useEffect(() => {

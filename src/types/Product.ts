@@ -9,3 +9,7 @@ export interface Product {
   pieces: number;
   createdAt: Date;
 }
+
+export interface CartProduct extends Product {
+  amount: number;
+}

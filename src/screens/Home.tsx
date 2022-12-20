@@ -24,7 +24,10 @@ import { StackOptionsProps } from "../Navigation";
 import { useTextInput } from "../hooks/useTextInput";
 import { useGetLastProducts } from "../hooks/useGetLastProducts";
 
+//import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export function Home({ navigation }: StackOptionsProps) {
+  //AsyncStorage.setItem("ShoppingCart", JSON.stringify([]));
   const { width } = useWindowDimensions();
   const { categories } = useGetCategories();
   const { products } = useGetLastProducts(5);

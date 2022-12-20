@@ -3,8 +3,10 @@ import React from "react";
 import MaterialComunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { PrimaryButton } from "./PrimaryButton";
 import { COLORS } from "../../settings/colors";
-import { Product } from "../types/Product";
+import { CartProduct, Product } from "../types/Product";
 import { setLocalStorageData } from "../utils/setLocalStorageData";
+import { isInShoppingCart } from "../utils/isInShoppingCart";
+import { setProductAmountInCart } from "../utils/setProductAmountInCart";
 
 interface Props {
   id: string;
@@ -33,8 +35,14 @@ export function ProductCard({
   createdAt,
   textColor,
 }: Props) {
-  const addProductToShoppingCart = () => {
-    const product: Product = {
+  const addProductToShoppingCart = async () => {
+    const isInCart = await isInShoppingCart(id);
+    if (isInCart) {
+      setProductAmountInCart(id, "increment");
+      return;
+    }
+
+    const product: CartProduct = {
       id,
       name,
       imgURL,
@@ -44,6 +52,7 @@ export function ProductCard({
       discountPrice,
       pieces,
       createdAt,
+      amount: 1,
     };
 
     setLocalStorageData("ShoppingCart", product);
@@ -51,13 +60,6 @@ export function ProductCard({
 
   return (
     <TouchableOpacity style={[styles.container, { backgroundColor }]}>
-      <TouchableOpacity style={styles.heart}>
-        <MaterialComunityIcons
-          name={"heart-outline"}
-          size={30}
-          color={COLORS.black}
-        />
-      </TouchableOpacity>
       <Image
         style={[styles.image]}
         source={{
@@ -114,15 +116,6 @@ const styles = StyleSheet.create({
     shadowColor: "#000000",
     elevation: 10,
     marginVertical: 10,
-  },
-  heart: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    width: 30,
-    height: 30,
-    justifyContent: "center",
-    alignItems: "center",
   },
   image: {
     width: 200,
