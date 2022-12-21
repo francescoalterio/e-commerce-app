@@ -12,10 +12,5 @@ export async function getCategories(): Promise<Category[]> {
     id: doc.id,
   }));
 
-  const dataToCapitalize = myData.map((x) => ({
-    ...x,
-    name: toCapitalize(x.name),
-  }));
-
-  return dataToCapitalize;
+  return myData;
 }

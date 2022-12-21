@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { COLORS } from "../../settings/colors";
+import { toCapitalize } from "../utils/toCapitalize";
+import { useNavigation } from "@react-navigation/native";
 
 interface Props {
   id: string;
@@ -10,6 +12,8 @@ interface Props {
   textColor: string;
   imageSize: number;
   shadow?: boolean;
+  searchText: string;
+  categorySelected?: string;
 }
 
 export function CategoryCard({
@@ -20,12 +24,36 @@ export function CategoryCard({
   textColor,
   imageSize,
   shadow,
+  searchText,
+  categorySelected,
 }: Props) {
+  const navigation = useNavigation<any>();
+
   const needShadow = shadow && { shadowColor: "#000000", elevation: 5 };
+  const capitalizeName = toCapitalize(name);
+
+  const searchWithCategory = () => {
+    if (categorySelected === name) {
+      navigation.navigate("Search", {
+        searchText: searchText,
+        category: "",
+      });
+    } else {
+      navigation.navigate("Search", {
+        searchText: searchText,
+        category: name,
+      });
+    }
+  };
+
+  console.log(categorySelected, name);
+
+  const sizeIsSelected =
+    categorySelected === name ? { backgroundColor: COLORS.primaryLight } : {};
 
   return (
-    <TouchableOpacity style={[styles.container]}>
-      <View style={[styles.imageContainer, needShadow]}>
+    <TouchableOpacity onPress={searchWithCategory} style={[styles.container]}>
+      <View style={[styles.imageContainer, needShadow, sizeIsSelected]}>
         <Image
           style={[
             {
@@ -49,7 +77,7 @@ export function CategoryCard({
           },
         ]}
       >
-        {name}
+        {capitalizeName}
       </Text>
     </TouchableOpacity>
   );

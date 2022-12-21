@@ -18,7 +18,7 @@ export function ShoppingCart({ navigation }: StackOptionsProps) {
   const { products, getNewProducts } = useGetShoppingCart();
   const totalPrice = getTotalPrice(products);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <LinearGradient
         colors={[COLORS.primaryGradient, COLORS.secondaryGradient]}
         style={styles.topBar}
@@ -42,25 +42,27 @@ export function ShoppingCart({ navigation }: StackOptionsProps) {
           </Text>
         </TouchableOpacity>
       </LinearGradient>
-      <ScrollView style={[styles.container, { paddingHorizontal: 15 }]}>
-        {products.map((item) => (
-          <ProductCard
-            id={item.id}
-            name={item.name}
-            imgURL={item.imgURL}
-            category={item.category}
-            description={item.description}
-            price={item.price}
-            discountPrice={item.discountPrice}
-            pieces={item.pieces}
-            backgroundColor={COLORS.backgroundWhite}
-            key={item.id}
-            createdAt={item.createdAt}
-            type="cart"
-            cartAmount={item.amount}
-            getNewProducts={getNewProducts}
-          />
-        ))}
+      <ScrollView style={[styles.container]}>
+        <View style={{ paddingHorizontal: 15, paddingVertical: 15 }}>
+          {products.map((item) => (
+            <ProductCard
+              id={item.id}
+              name={item.name}
+              imgURL={item.imgURL}
+              category={item.category}
+              description={item.description}
+              price={item.price}
+              discountPrice={item.discountPrice}
+              pieces={item.pieces}
+              backgroundColor={COLORS.backgroundWhite}
+              key={item.id}
+              createdAt={item.createdAt}
+              type="cart"
+              cartAmount={item.amount}
+              getNewProducts={getNewProducts}
+            />
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
@@ -69,6 +71,7 @@ export function ShoppingCart({ navigation }: StackOptionsProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.backgroundWhite,
   },
   goBack: {
     position: "absolute",

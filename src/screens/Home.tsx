@@ -72,6 +72,7 @@ export function Home({ navigation }: StackOptionsProps) {
           imageSize={40}
           textColor={COLORS.black}
           shadow
+          searchText={searchInputText as string}
         />
         <Separator />
         <SectionTitle content="Last Products">

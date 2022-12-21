@@ -18,6 +18,7 @@ import { ProductCard } from "../components/ProductCard";
 import { useGetCategories } from "../hooks/useGetCategories";
 import { TopBar } from "../components/TopBar";
 import { LinearGradient } from "expo-linear-gradient";
+import { Product } from "../types/Product";
 
 export function Search({ route, navigation }: StackOptionsProps) {
   const [searchInputText, onChageSearchInput] = useTextInput();
@@ -25,6 +26,13 @@ export function Search({ route, navigation }: StackOptionsProps) {
   const { products, isLoading, getProductsByText } = useGetProductsByText(
     route.params?.searchText as string
   );
+
+  const productsByCategory =
+    route.params?.category &&
+    products.filter((x) => x.category === route.params?.category);
+
+  console.log(route.params?.category, route.params?.searchText);
+
   return (
     <ScrollView>
       <LinearGradient
@@ -51,6 +59,8 @@ export function Search({ route, navigation }: StackOptionsProps) {
           categoryColor={COLORS.lightGray}
           imageSize={40}
           textColor={COLORS.backgroundWhite}
+          searchText={searchInputText as string}
+          categorySelected={route.params?.category}
         />
       </LinearGradient>
 
@@ -59,6 +69,23 @@ export function Search({ route, navigation }: StackOptionsProps) {
           <View style={{ marginTop: 20 }}>
             <ActivityIndicator size="large" color={COLORS.primary} />
           </View>
+        ) : productsByCategory ? (
+          productsByCategory.map((item) => (
+            <ProductCard
+              id={item.id}
+              name={item.name}
+              imgURL={item.imgURL}
+              category={item.category}
+              description={item.description}
+              price={item.price}
+              discountPrice={item.discountPrice}
+              pieces={item.pieces}
+              backgroundColor={COLORS.backgroundWhite}
+              key={item.id}
+              createdAt={item.createdAt}
+              type="normal"
+            />
+          ))
         ) : (
           products.map((item) => (
             <ProductCard

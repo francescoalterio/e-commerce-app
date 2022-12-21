@@ -9,6 +9,8 @@ interface Props {
   imageSize: number;
   textColor: string;
   shadow?: boolean;
+  searchText: string;
+  categorySelected?: string;
 }
 
 export function CategoryList({
@@ -17,6 +19,8 @@ export function CategoryList({
   imageSize,
   textColor,
   shadow,
+  searchText,
+  categorySelected,
 }: Props) {
   return (
     <View style={styles.container}>
@@ -31,6 +35,8 @@ export function CategoryList({
             textColor={textColor}
             imageSize={imageSize}
             shadow={shadow}
+            searchText={searchText}
+            categorySelected={categorySelected}
           />
         )}
         keyExtractor={(item) => item.id}

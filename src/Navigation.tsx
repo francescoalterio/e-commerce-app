@@ -10,7 +10,7 @@ import { Search } from "./screens/Search";
 
 type ParamList = {
   Home: undefined;
-  Search: { searchText: string };
+  Search: { searchText: string; category?: string };
   ShoppingCart: undefined;
 };
 
