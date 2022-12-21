@@ -24,10 +24,9 @@ import { StackOptionsProps } from "../Navigation";
 import { useTextInput } from "../hooks/useTextInput";
 import { useGetLastProducts } from "../hooks/useGetLastProducts";
 
-//import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
 
 export function Home({ navigation }: StackOptionsProps) {
-  //AsyncStorage.setItem("ShoppingCart", JSON.stringify([]));
   const { width } = useWindowDimensions();
   const { categories } = useGetCategories();
   const { products } = useGetLastProducts(5);
@@ -35,7 +34,8 @@ export function Home({ navigation }: StackOptionsProps) {
 
   return (
     <ScrollView style={styles.back}>
-      <View
+      <LinearGradient
+        colors={[COLORS.primaryGradient, COLORS.secondaryGradient]}
         style={[
           styles.semiCircle,
           { width: width * 2, left: -((width * 2) / 4) },
@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
   semiCircle: {
     height: 325,
     position: "absolute",
-    backgroundColor: COLORS.primary,
     borderBottomLeftRadius: 400,
     borderBottomRightRadius: 400,
   },

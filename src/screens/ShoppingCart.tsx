@@ -12,13 +12,17 @@ import { COLORS } from "../../settings/colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { StackOptionsProps } from "../Navigation";
 import { getTotalPrice } from "../utils/getTotalPrice";
+import { LinearGradient } from "expo-linear-gradient";
 
 export function ShoppingCart({ navigation }: StackOptionsProps) {
   const { products, getNewProducts } = useGetShoppingCart();
   const totalPrice = getTotalPrice(products);
   return (
     <View style={styles.container}>
-      <View style={styles.topBar}>
+      <LinearGradient
+        colors={[COLORS.primaryGradient, COLORS.secondaryGradient]}
+        style={styles.topBar}
+      >
         <TouchableOpacity
           style={styles.goBack}
           onPress={() => navigation.goBack()}
@@ -37,7 +41,7 @@ export function ShoppingCart({ navigation }: StackOptionsProps) {
             Proceed to payment
           </Text>
         </TouchableOpacity>
-      </View>
+      </LinearGradient>
       <ScrollView style={[styles.container, { paddingHorizontal: 15 }]}>
         {products.map((item) => (
           <ProductCard

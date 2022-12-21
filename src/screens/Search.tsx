@@ -17,6 +17,7 @@ import { useGetProductsByText } from "../hooks/useGetProductsByText";
 import { ProductCard } from "../components/ProductCard";
 import { useGetCategories } from "../hooks/useGetCategories";
 import { TopBar } from "../components/TopBar";
+import { LinearGradient } from "expo-linear-gradient";
 
 export function Search({ route, navigation }: StackOptionsProps) {
   const [searchInputText, onChageSearchInput] = useTextInput();
@@ -26,7 +27,10 @@ export function Search({ route, navigation }: StackOptionsProps) {
   );
   return (
     <ScrollView>
-      <View style={styles.colorBlock}>
+      <LinearGradient
+        colors={[COLORS.primaryGradient, COLORS.secondaryGradient]}
+        style={styles.colorBlock}
+      >
         <TopBar />
         <View style={{ paddingHorizontal: 30 }}>
           <SearchInput
@@ -48,7 +52,7 @@ export function Search({ route, navigation }: StackOptionsProps) {
           imageSize={40}
           textColor={COLORS.backgroundWhite}
         />
-      </View>
+      </LinearGradient>
 
       <View style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
         {isLoading ? (
