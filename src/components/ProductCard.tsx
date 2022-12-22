@@ -3,11 +3,10 @@ import React from "react";
 import MaterialComunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { PrimaryButton } from "./PrimaryButton";
 import { COLORS } from "../../settings/colors";
-import { CartProduct, Product } from "../types/Product";
-import { setLocalStorageData } from "../utils/setLocalStorageData";
-import { isInShoppingCart } from "../utils/isInShoppingCart";
+import { Product } from "../types/Product";
 import { setProductAmountInCart } from "../utils/setProductAmountInCart";
 import { useNavigation } from "@react-navigation/native";
+import { addProductToShoppingCart } from "../utils/addProductToShoppingCart";
 
 interface Props {
   id: string;
@@ -43,14 +42,8 @@ export function ProductCard({
 }: Props) {
   const navigation = useNavigation<any>();
 
-  const addProductToShoppingCart = async () => {
-    const isInCart = await isInShoppingCart(id);
-    if (isInCart) {
-      await setProductAmountInCart(id, "increment");
-      return;
-    }
-
-    const product: CartProduct = {
+  const addProductToCart = async () => {
+    const product: Product = {
       id,
       name,
       imgURL,
@@ -60,10 +53,9 @@ export function ProductCard({
       discountPrice,
       pieces,
       createdAt,
-      amount: 1,
     };
 
-    setLocalStorageData("ShoppingCart", product);
+    await addProductToShoppingCart(product);
   };
 
   const removeProductToShoppingCart = async () => {
@@ -108,8 +100,8 @@ export function ProductCard({
         <Text style={styles.productPieces}> // {pieces} pack</Text>
       </View>
       <View style={[styles.textContainer, { marginTop: 5 }]}>
-        {discountPrice !== 0 && <View style={styles.discountLine} />}
-        {discountPrice !== 0 ? (
+        {discountPrice ? <View style={styles.discountLine} /> : null}
+        {discountPrice ? (
           <Text style={styles.productDiscount}>$ {price}</Text>
         ) : (
           <Text> </Text>
@@ -129,7 +121,7 @@ export function ProductCard({
               onPress={() => {}}
             />
             <TouchableOpacity
-              onPress={addProductToShoppingCart}
+              onPress={addProductToCart}
               style={styles.addToCart}
             >
               <MaterialComunityIcons

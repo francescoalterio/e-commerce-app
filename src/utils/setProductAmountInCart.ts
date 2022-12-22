@@ -3,7 +3,11 @@ import { CartProduct } from "../types/Product";
 
 type Action = "increment" | "decrement";
 
-export async function setProductAmountInCart(id: string, action: Action) {
+export async function setProductAmountInCart(
+  id: string,
+  action: Action,
+  amount: number = 1
+) {
   const data = await AsyncStorage.getItem("ShoppingCart");
   if (data === null) {
     await AsyncStorage.setItem("ShoppingCart", JSON.stringify([]));
@@ -12,7 +16,11 @@ export async function setProductAmountInCart(id: string, action: Action) {
   const dataParsed: CartProduct[] = JSON.parse(data);
   const dataIncrementOrDecrement = dataParsed.map((x) =>
     x.id === id
-      ? { ...x, amount: action === "increment" ? x.amount + 1 : x.amount - 1 }
+      ? {
+          ...x,
+          amount:
+            action === "increment" ? x.amount + amount : x.amount - amount,
+        }
       : x
   );
 

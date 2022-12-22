@@ -43,7 +43,7 @@ export function ShoppingCart({ navigation }: ShoppingCartStackNavigationProps) {
         </TouchableOpacity>
       </LinearGradient>
       <ScrollView style={[styles.container]}>
-        <View style={{ paddingHorizontal: 15, paddingVertical: 15 }}>
+        <View style={{ paddingHorizontal: 25, paddingVertical: 25 }}>
           {products.map((item) => (
             <ProductCard
               id={item.id}
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   topBar: {
     width: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
     paddingTop: Constants.statusBarHeight + 20,
     paddingBottom: 20,
     backgroundColor: COLORS.primary,

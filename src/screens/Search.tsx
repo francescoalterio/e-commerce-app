@@ -64,7 +64,7 @@ export function Search({ route, navigation }: SearchStackNavigationProps) {
         />
       </LinearGradient>
 
-      <View style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
+      <View style={{ paddingHorizontal: 25, paddingVertical: 25 }}>
         {isLoading ? (
           <View style={{ marginTop: 20 }}>
             <ActivityIndicator size="large" color={COLORS.primary} />
@@ -115,6 +115,6 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingBottom: 10,
     backgroundColor: COLORS.primary,
-    paddingHorizontal: 15,
+    paddingHorizontal: 25,
   },
 });
