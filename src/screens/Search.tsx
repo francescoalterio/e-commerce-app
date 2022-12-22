@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Constants from "expo-constants";
-import { StackOptionsProps } from "../Navigation";
+import { SearchStackNavigationProps } from "../Navigation";
 import { COLORS } from "../../settings/colors";
 import { useTextInput } from "../hooks/useTextInput";
 import { SearchInput } from "../components/SearchInput";
@@ -20,7 +20,7 @@ import { TopBar } from "../components/TopBar";
 import { LinearGradient } from "expo-linear-gradient";
 import { Product } from "../types/Product";
 
-export function Search({ route, navigation }: StackOptionsProps) {
+export function Search({ route, navigation }: SearchStackNavigationProps) {
   const [searchInputText, onChageSearchInput] = useTextInput();
   const { categories } = useGetCategories();
   const { products, isLoading, getProductsByText } = useGetProductsByText(

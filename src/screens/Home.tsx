@@ -20,13 +20,13 @@ import { Separator } from "../components/Separator";
 import { ProductCard } from "../components/ProductCard";
 import { useGetCategories } from "../hooks/useGetCategories";
 
-import { StackOptionsProps } from "../Navigation";
 import { useTextInput } from "../hooks/useTextInput";
 import { useGetLastProducts } from "../hooks/useGetLastProducts";
 
 import { LinearGradient } from "expo-linear-gradient";
+import { HomeStackNavigationProps } from "../Navigation";
 
-export function Home({ navigation }: StackOptionsProps) {
+export function Home({ navigation }: HomeStackNavigationProps) {
   const { width } = useWindowDimensions();
   const { categories } = useGetCategories();
   const { products } = useGetLastProducts(5);

@@ -7,6 +7,7 @@ import { CartProduct, Product } from "../types/Product";
 import { setLocalStorageData } from "../utils/setLocalStorageData";
 import { isInShoppingCart } from "../utils/isInShoppingCart";
 import { setProductAmountInCart } from "../utils/setProductAmountInCart";
+import { useNavigation } from "@react-navigation/native";
 
 interface Props {
   id: string;
@@ -40,6 +41,8 @@ export function ProductCard({
   cartAmount,
   getNewProducts,
 }: Props) {
+  const navigation = useNavigation<any>();
+
   const addProductToShoppingCart = async () => {
     const isInCart = await isInShoppingCart(id);
     if (isInCart) {
@@ -68,8 +71,27 @@ export function ProductCard({
     if (getNewProducts) getNewProducts();
   };
 
+  const goToProductScreen = () => {
+    const product: Product = {
+      id,
+      name,
+      imgURL,
+      category,
+      description,
+      price,
+      discountPrice,
+      pieces,
+      createdAt,
+    };
+
+    navigation.navigate("Product", { product });
+  };
+
   return (
-    <TouchableOpacity style={[styles.container, { backgroundColor }]}>
+    <TouchableOpacity
+      onPress={goToProductScreen}
+      style={[styles.container, { backgroundColor }]}
+    >
       <Image
         style={[styles.image]}
         source={{

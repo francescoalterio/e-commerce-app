@@ -10,11 +10,11 @@ import { useGetShoppingCart } from "../hooks/useGetShoppingCart";
 import { ProductCard } from "../components/ProductCard";
 import { COLORS } from "../../settings/colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { StackOptionsProps } from "../Navigation";
+import { ShoppingCartStackNavigationProps } from "../Navigation";
 import { getTotalPrice } from "../utils/getTotalPrice";
 import { LinearGradient } from "expo-linear-gradient";
 
-export function ShoppingCart({ navigation }: StackOptionsProps) {
+export function ShoppingCart({ navigation }: ShoppingCartStackNavigationProps) {
   const { products, getNewProducts } = useGetShoppingCart();
   const totalPrice = getTotalPrice(products);
   return (

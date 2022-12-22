@@ -7,11 +7,14 @@ import {
 import { Home } from "./screens/Home";
 import { ShoppingCart } from "./screens/ShoppingCart";
 import { Search } from "./screens/Search";
+import { Product as ProductScreen } from "./screens/Product";
+import { Product } from "./types/Product";
 
-type ParamList = {
+export type ParamList = {
   Home: undefined;
   Search: { searchText: string; category?: string };
   ShoppingCart: undefined;
+  Product: { product: Product };
 };
 
 const Stack = createNativeStackNavigator<ParamList>();
@@ -24,14 +27,30 @@ export default function Navigation() {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
         <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="ShoppingCart" component={ShoppingCart} />
+        <Stack.Screen name="Product" component={ProductScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export type StackOptionsProps = NativeStackScreenProps<
+export type SearchStackNavigationProps = NativeStackScreenProps<
   ParamList,
-  "Search" | "Home" | "ShoppingCart"
+  "Search"
+>;
+
+export type HomeStackNavigationProps = NativeStackScreenProps<
+  ParamList,
+  "Home"
+>;
+
+export type ShoppingCartStackNavigationProps = NativeStackScreenProps<
+  ParamList,
+  "ShoppingCart"
+>;
+
+export type ProductStackNavigationProps = NativeStackScreenProps<
+  ParamList,
+  "Product"
 >;
